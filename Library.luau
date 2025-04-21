@@ -4699,8 +4699,8 @@ local Notification = {} do
 			NewNotification.Holder.Size = UDim2.new(1, 0, 0, 58 + ContentSize)
 
 			RootMotor:setGoal({
-				Scale = Spring(0, { frequency = 5 }),
-				Offset = Spring(0, { frequency = 5 }),
+				Scale = Flipper.Spring.new(0, { frequency = 5 }),
+				Offset = Flipper.Spring.new(0, { frequency = 5 }),
 			})
 		end
 
@@ -4709,8 +4709,8 @@ local Notification = {} do
 				NewNotification.Closed = true
 				task.spawn(function()
 					RootMotor:setGoal({
-						Scale = Spring(1, { frequency = 5 }),
-						Offset = Spring(60, { frequency = 5 }),
+						Scale = Flipper.Spring.new(1, { frequency = 5 }),
+						Offset = Flipper.Spring.new(60, { frequency = 5 }),
 					})
 					task.wait(0.4)
 					if Library.UseAcrylic then
@@ -4907,13 +4907,13 @@ local TabModule = {
 		TabModule.Tabs[Tab].Selected = true
 
 		Window.TabDisplay.Text = TabModule.Tabs[Tab].Name
-		Window.SelectorPosMotor:setGoal(Spring(TabModule:GetCurrentTabPos(), { frequency = 6 }))
+		Window.SelectorPosMotor:setGoal(Flipper.Spring.new(TabModule:GetCurrentTabPos(), { frequency = 6 }))
 
 		task.spawn(function()
 			Window.ContainerHolder.Parent = Window.ContainerAnim
 
-			Window.ContainerPosMotor:setGoal(Spring(15, { frequency = 10 }))
-			Window.ContainerBackMotor:setGoal(Spring(1, { frequency = 10 }))
+			Window.ContainerPosMotor:setGoal(Flipper.Spring.new(15, { frequency = 10 }))
+			Window.ContainerBackMotor:setGoal(Flipper.Spring.new(1, { frequency = 10 }))
 
 			task.wait(0.12)
 
@@ -4922,8 +4922,8 @@ local TabModule = {
 			end
 
 			TabModule.Containers[Tab].Visible = true
-			Window.ContainerPosMotor:setGoal(Spring(0, { frequency = 5 }))
-			Window.ContainerBackMotor:setGoal(Spring(0, { frequency = 8 }))
+			Window.ContainerPosMotor:setGoal(Flipper.Spring.new(0, { frequency = 5 }))
+			Window.ContainerBackMotor:setGoal(Flipper.Spring.new(0, { frequency = 8 }))
 
 			task.wait(0.12)
 
@@ -5109,7 +5109,7 @@ function Components.Window(Config)
 		local DeltaTime = Now - LastTime
 
 		if LastValue ~= nil then
-			Window.SelectorSizeMotor:setGoal(Spring((math.abs(Value - LastValue) / (DeltaTime * 60)) + 16))
+			Window.SelectorSizeMotor:setGoal(Flipper.Spring.new((math.abs(Value - LastValue) / (DeltaTime * 60)) + 16))
 			LastValue = Value
 		end
 		LastTime = Now
@@ -5149,8 +5149,8 @@ function Components.Window(Config)
 
 		if not NoPos then
 			PosMotor:setGoal({
-				X = Spring(Value and 0 or Window.Position.X.Offset, { frequency = 6 }),
-				Y = Spring(Value and 0 or Window.Position.Y.Offset, { frequency = 6 }),
+				X = Flipper.Spring.new(Value and 0 or Window.Position.X.Offset, { frequency = 6 }),
+				Y = Flipper.Spring.new(Value and 0 or Window.Position.Y.Offset, { frequency = 6 }),
 			})
 		end
 
@@ -5205,8 +5205,8 @@ function Components.Window(Config)
 			local Delta = Input.Position - MousePos
 			Window.Position = UDim2.fromOffset(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y)
 			PosMotor:setGoal({
-				X = Instant(Window.Position.X.Offset),
-				Y = Instant(Window.Position.Y.Offset),
+				X = Flipper.Instant.new(Window.Position.X.Offset),
+				Y = Flipper.Instant.new(Window.Position.Y.Offset),
 			})
 
 			if Window.Maximized then
@@ -5410,7 +5410,7 @@ function Components.Window(Config)
 	Creator.AddSignal(Window.TabHolder:GetPropertyChangedSignal("CanvasPosition"), function()
 		LastValue = TabModule:GetCurrentTabPos() + 16
 		LastTime = 0
-		Window.SelectorPosMotor:setGoal(Instant(TabModule:GetCurrentTabPos()))
+		Window.SelectorPosMotor:setGoal(Flipper.Instant.new(TabModule:GetCurrentTabPos()))
 	end)
 
 	return Window
