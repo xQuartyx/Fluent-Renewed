@@ -383,8 +383,6 @@ local SaveManager = {} do
 
 		SaveManager:SetIgnoreIndexes({ "SaveManager_ConfigList", "SaveManager_ConfigName" })
 	end
-
-	SaveManager:BuildFolderTree()
 end
 
 return SaveManager
