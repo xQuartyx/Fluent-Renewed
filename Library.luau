@@ -39,17 +39,14 @@ local function Clone<Original>(ToClone: any & Original): (Original, boolean)
 	end
 end
 
-if not getgenv().debug then getgenv().debug = {} end
-getgenv().debug.traceback = getgenv().debug.traceback or function(message, level) return message end
-
-local RunService = Clone(game:GetService("RunService"))
-local MarketplaceService = Clone(game:GetService("MarketplaceService"))
-local TweenService = Clone(game:GetService("TweenService"))
-local UserInputService = Clone(game:GetService("UserInputService"))
-local GuiService = Clone(game:GetService("GuiService"))
-local TextService = Clone(game:GetService("TextService"))
-local Mouse = Clone(game:GetService("Players")).LocalPlayer:GetMouse()
-local Camera = Clone(game:GetService("Workspace")).CurrentCamera
+local RunService = game:GetService("RunService")
+local MarketplaceService = game:GetService("MarketplaceService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local GuiService = game:GetService("GuiService")
+local TextService = game:GetService("TextService")
+local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+local Camera = game:GetService("Workspace").CurrentCamera
 
 local Themes = {
 	Names = {
@@ -4999,10 +4996,7 @@ function Components.Window(Config)
 		MinSize = Config.MinSize,
 		CurrentPos = 0,
 		TabWidth = 0,
-		Position = UDim2.fromOffset(
-			Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-			Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2
-		),
+		Position = UDim2.fromScale(0.5, 0.5),
 	}
 
 	local Dragging, DragInput, MousePos, StartPos = false, nil, nil, nil
@@ -5096,6 +5090,7 @@ function Components.Window(Config)
 		BackgroundTransparency = 1,
 		Size = Window.Size,
 		Position = Window.Position,
+		AnchorPoint = Vector2.new(0.5, 0.5),
 		Parent = Config.Parent,
 	}, {
 		Window.AcrylicPaint.Frame,
