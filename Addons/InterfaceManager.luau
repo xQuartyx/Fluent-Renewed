@@ -36,7 +36,7 @@ local InterfaceManager = {} do
 		end
 		
 		paths[#paths + 1] = self.Folder
-		paths[#paths + 1] = `{self.Folder}/settings`
+		paths[#paths + 1] = `{self.Folder}`
 
 		for i = 1, #paths do
 			local str = paths[i]
