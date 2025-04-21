@@ -39,6 +39,9 @@ local function Clone<Original>(ToClone: any & Original): (Original, boolean)
 	end
 end
 
+if not getgenv().debug then getgenv().debug = {} end
+getgenv().debug.traceback = getgenv().debug.traceback or function(message, level) return message end
+
 local RunService = Clone(game:GetService("RunService"))
 local MarketplaceService = Clone(game:GetService("MarketplaceService"))
 local TweenService = Clone(game:GetService("TweenService"))
