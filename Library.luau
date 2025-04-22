@@ -5510,15 +5510,13 @@ Library.UIContainer = BaseContainer.Parent
 Library.GUI = BaseContainer
 
 function Library:SafeCallback(Function, ...)
-	assert(typeof(Function) == "function", debug.traceback(`Library:SafeCallback expects type 'function' at Argument #1, got '{typeof(Function)}'`, 2))
-
 	task.spawn(function(...)
 		local Success, Event = pcall(Function, ...)
 
 		if not Success then
 			local _, i = Event:find(":%d+: ")
 
-			task.defer(error, debug.traceback(Event, 2))
+			task.defer(error, Event)
 
 			Library:Notify({
 				Title = "Interface",
