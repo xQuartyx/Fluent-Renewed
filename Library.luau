@@ -4996,7 +4996,10 @@ function Components.Window(Config)
 		MinSize = Config.MinSize,
 		CurrentPos = 0,
 		TabWidth = 0,
-		Position = UDim2.fromScale(0.5, 0.5),
+		Position = UDim2.fromOffset(
+			Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
+			Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2
+		),
 	}
 
 	local Dragging, DragInput, MousePos, StartPos = false, nil, nil, nil
