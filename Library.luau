@@ -7645,7 +7645,7 @@ local Slider = {} do
 	end
 end
 
-ElementsTable.Keybind = Keybind
+ElementsTable.Slider = Slider
 
 local Elements = {}
 Elements.__index = Elements
