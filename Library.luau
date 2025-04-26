@@ -4985,8 +4985,6 @@ function Components.Window(Config)
 	assert(typeof(Config.Mobile.GetIcon) == "function", "Mobile Config key 'GetIcon' must be a function!")
 	assert(typeof(Config.Mobile.Size) == "UDim2", "Mobile Config key 'Size' must be a UDim2!")
 
-	local Instant = Flipper.Instant.new
-
 	local Window = {
 		Minimized = false,
 		OnMinimized = Signal.new(),
@@ -5004,10 +5002,10 @@ function Components.Window(Config)
 		),
 	}
 
-	local Dragging, DragInput, MousePos, StartPos = false
+	local Dragging, DragInput, MousePos, StartPos = false, nil, nil, nil
 	local Resizing, ResizePos = false, nil
 	local MinimizeNotif = false
-	local IsDraggingHideButton, DragInputHideButton, DragStart, DragStartPos = false
+	local IsDraggingHideButton, DragInputHideButton, DragStart, DragStartPos = false, nil, nil, nil
 
 	Window.AcrylicPaint = Acrylic.AcrylicPaint()
 	Window.TabWidth = Config.TabWidth
@@ -5095,7 +5093,6 @@ function Components.Window(Config)
 		BackgroundTransparency = 1,
 		Size = Window.Size,
 		Position = Window.Position,
-		AnchorPoint = Vector2.new(0.5, 0.5),
 		Parent = Config.Parent,
 	}, {
 		Window.AcrylicPaint.Frame,
@@ -5254,10 +5251,10 @@ function Components.Window(Config)
 			local Delta = Input.Position - MousePos
 			Window.Position = UDim2.fromOffset(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y)
 			PosMotor:setGoal({
-				X = Instant(Window.Position.X.Offset),
-				Y = Instant(Window.Position.Y.Offset),
+				X = Flipper.Instant.new(Window.Position.X.Offset),
+				Y = Flipper.Instant.new(Window.Position.Y.Offset),
 			})
-	
+
 			if Window.Maximized then
 				Window.Maximize(false, true, true)
 			end
