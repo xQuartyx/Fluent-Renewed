@@ -4985,6 +4985,8 @@ function Components.Window(Config)
 	assert(typeof(Config.Mobile.GetIcon) == "function", "Mobile Config key 'GetIcon' must be a function!")
 	assert(typeof(Config.Mobile.Size) == "UDim2", "Mobile Config key 'Size' must be a UDim2!")
 
+	local Instant = Flipper.Instant.new
+
 	local Window = {
 		Minimized = false,
 		OnMinimized = Signal.new(),
@@ -5252,10 +5254,10 @@ function Components.Window(Config)
 			local Delta = Input.Position - MousePos
 			Window.Position = UDim2.fromOffset(StartPos.X.Offset + Delta.X, StartPos.Y.Offset + Delta.Y)
 			PosMotor:setGoal({
-				X = Flipper.Instant.new(Window.Position.X.Offset),
-				Y = Flipper.Instant.new(Window.Position.Y.Offset),
+				X = Instant(Window.Position.X.Offset),
+				Y = Instant(Window.Position.Y.Offset),
 			})
-
+	
 			if Window.Maximized then
 				Window.Maximize(false, true, true)
 			end
