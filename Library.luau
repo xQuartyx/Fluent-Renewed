@@ -5002,10 +5002,10 @@ function Components.Window(Config)
 		),
 	}
 
-	local Dragging, DragInput, MousePos, StartPos = false, nil, nil, nil
+	local Dragging, DragInput, MousePos, StartPos = false
 	local Resizing, ResizePos = false, nil
 	local MinimizeNotif = false
-	local IsDraggingHideButton, DragInputHideButton, DragStart, DragStartPos = false, nil, nil, nil
+	local IsDraggingHideButton, DragInputHideButton, DragStart, DragStartPos = false
 
 	Window.AcrylicPaint = Acrylic.AcrylicPaint()
 	Window.TabWidth = Config.TabWidth
@@ -5270,7 +5270,7 @@ function Components.Window(Config)
 
 			local TargetSize = Vector3.new(StartSize.X.Offset, StartSize.Y.Offset, 0) + Vector3.new(1, 1, 0) * Delta
 			local TargetSizeClamped =
-				Vector2.new(math.clamp(TargetSize.X, Window.MinSize.X, 2048), math.clamp(TargetSize.Y, Window.MinSize.Y, 2048))
+				Vector2.new(math.clamp(TargetSize.X, 470, 2048), math.clamp(TargetSize.Y, 380, 2048))
 
 			SizeMotor:setGoal({
 				X = Flipper.Instant.new(TargetSizeClamped.X),
