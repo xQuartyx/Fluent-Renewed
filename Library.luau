@@ -5469,13 +5469,13 @@ local BaseContainer = New("ScreenGui", {
 })
 
 BaseContainer.Parent = (function() -- https://github.com/Pepsied-5229/Pepsi-UI-Library/blob/main/Pepsi-UI-Library.lua#L503
-	-- local success, result = pcall(function()
-	-- 	return (gethui or get_hidden_ui)()
-	-- end)
+	local success, result = pcall(function()
+		return (gethui or get_hidden_ui)()
+	end)
 
-	-- if success and result then
-	-- 	return result
-	-- end
+	if success and result then
+		return result
+	end
 
 	success, result = pcall(function()
 		local CoreGui = game:GetService("CoreGui")
